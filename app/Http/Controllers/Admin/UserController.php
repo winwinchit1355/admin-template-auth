@@ -124,4 +124,17 @@ class UserController extends Controller
 
         return $response;
     }
+    public function assignPermission(User $user, Permission $permission)
+    {
+        $user->permissions()->attach($permission);
+
+        return redirect()->back();
+    }
+
+    public function revokePermission(User $user, Permission $permission)
+    {
+        $user->permissions()->detach($permission);
+
+        return redirect()->back();
+    }
 }

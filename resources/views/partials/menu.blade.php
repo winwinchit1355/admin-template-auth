@@ -30,8 +30,8 @@
 
             <ul class="menu-inner py-1">
               <!-- Dashboards -->
-              <li class="menu-item  {{ request()->is("admin") ? "active" : "" }}"">
-                <a href="{{ route("admin.home") }}" class="menu-link">
+              <li class="menu-item  {{ request()->is('admin') ? 'active' : '' }}">
+                <a href="{{ route('admin.home') }}" class="menu-link">
                   <i class="menu-icon tf-icons fas fa-home fa-xs"></i>
                   <div data-i18n="{{ trans('global.dashboard') }}">{{ trans('global.dashboard') }}</div>
                 </a>
@@ -39,7 +39,7 @@
 
               {{-- User Management --}}
               @can('user_management_access')
-              <li class="menu-item {{ request()->is("admin/permissions*") ? "open" : "" }} {{ request()->is("admin/roles*") ? "open" : "" }} {{ request()->is("admin/users*") ? "open" : "" }}"">
+              <li class="menu-item {{ request()->is('admin/permissions*') ? 'open' : '' }} {{ request()->is('admin/roles*') ? 'open' : '' }} {{ request()->is('admin/users*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                   <i class="menu-icon tf-icons fas fa-users-cog fa-xs"></i>
                   <div data-i18n="{{ trans('cruds.userManagement.title') }}">{{ trans('cruds.userManagement.title') }}</div>
@@ -47,7 +47,7 @@
 
                 <ul class="menu-sub">
                   @can('role_access')
-                    <li class="menu-item {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "active" : "" }}">
+                    <li class="menu-item {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
                       <a href="{{ route('admin.permissions.index') }}" class="menu-link">
                         <div data-i18n="Permissions">{{ trans('cruds.permission.title') }}</div>
                       </a>
@@ -55,20 +55,21 @@
                   @endcan
 
                   @can('permission_access')
-                    <li class="menu-item {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "active" : "" }}"">
+                    <li class="menu-item {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
                       <a href="{{ route('admin.roles.index') }}" class="menu-link">
                         <div data-i18n="Roles">{{ trans('cruds.role.title') }}</div>
                       </a>
                     </li>
                   @endcan
 
-                  @can('user_access')
-                    <li class="menu-item {{ request()->is("admin/users") || request()->is("admin/users/*") ? "active" : "" }}"">
+                  {{--  @can('user_access')  --}}
+                  @customCan('user_access')
+                    <li class="menu-item {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
                       <a href="{{ route('admin.users.index') }}" class="menu-link">
                         <div data-i18n="Users">{{ trans('cruds.user.title') }}</div>
                       </a>
                     </li>
-                  @endcan
+                  @endCustomCan
                 </ul>
               </li>
               @endcan
